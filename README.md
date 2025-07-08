@@ -1,10 +1,3 @@
-Got it — let’s get this perfectly organized.
-
-Here’s the **clean, final `README.md`** for your `SecureBank-Pro` project. You can copy and paste it directly into your `README.md` file in the root of your project:
-
----
-
-```markdown
 # SecureBank Pro 🔐💻  
 **An Advanced Azure Cloud Security Architecture Project**
 
