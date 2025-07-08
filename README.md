@@ -1,39 +1,185 @@
-# 🔐 SecureBank Pro – Azure Cloud Security Architecture (Free Tier Project)
+Got it — let’s get this perfectly organized.
 
-SecureBank Pro is a real-world, enterprise-style Azure cloud security project built on a **$0/month free tier + $100 credit**. It simulates a secure banking environment and showcases:
-
-- Infrastructure as Code (IaC) with **Azure Bicep**
-- Secure App deployment using **Azure App Service (Linux + Node.js)**
-- **Key Vault** integration via **Managed Identity**
-- Secretless architecture (no hardcoded secrets)
-- Full GitHub documentation and CLI deployment
+Here’s the **clean, final `README.md`** for your `SecureBank-Pro` project. You can copy and paste it directly into your `README.md` file in the root of your project:
 
 ---
 
-## 📌 Quick Navigation
+```markdown
+# SecureBank Pro 🔐💻  
+**An Advanced Azure Cloud Security Architecture Project**
 
-- [🔧 Phase 1 – Core Infrastructure](#-phase-1--core-infrastructure-provisioning)
-- [🚀 Phase 2 – Secure App Deployment](#-phase-2--app--secrets-integration)
-- [📊 Phase 3 – Monitoring & Security](#-phase-3--monitoring-logging-defender-coming-soon)
-- [💻 Tech Stack](#-tech-stack)
-- [📁 Project Structure](#-project-structure)
-- [�� Deployment Guide](#-deployment-guide)
+SecureBank Pro is a senior-level cloud security architecture blueprint designed to demonstrate Zero Trust implementation using Azure-native tools. The solution models a secure, real-world deployment for a fictional banking app running on Azure App Service and backed by an Azure SQL Database. It features secrets management, RBAC, monitoring, and threat protection—all provisioned via Bicep Infrastructure as Code (IaC).
 
 ---
 
-## �� Phase 1 – Core Infrastructure Provisioning
+## �� Project Overview
 
-> **Goal:** Build foundational cloud resources using Bicep.
+| Phase | Title                        | Description                                                                 |
+|-------|------------------------------|-----------------------------------------------------------------------------|
+| 1     | Resource Group & Network     | Set up project scope, region, resource group, and naming conventions.       |
+| 2     | Secrets & SQL Database       | Deploy Key Vault with secrets, SQL server, and secure connection string.    |
+| 3     | Web App & Identity           | Deploy Node.js App on App Service, connect to Key Vault & SQL via MSI.      |
+| 4     | Monitoring                   | Enable App Insights, Log Analytics, and diagnostic settings for visibility. |
+| 5     | Defender for Cloud           | Enable Microsoft Defender for SQL, App Service, Key Vault, and monitor secure score. |
 
-✅ Resource Group  
-✅ App Service Plan (Linux)  
-✅ Virtual Network (optional)  
-✅ Prepared for expansion in later phases
+---
+
+## ⚙️ Tech Stack
+
+- **Azure App Service (Linux)**
+- **Azure SQL Database**
+- **Azure Key Vault**
+- **Azure Bicep**
+- **Azure Log Analytics**
+- **Azure Monitor**
+- **Defender for Cloud**
+- **Node.js & Express**
+
+---
+
+## 🔐 Security Features
+
+- Secrets stored in **Azure Key Vault**, accessed via **Managed Identity**.
+- SQL Admin password not hardcoded—retrieved securely at runtime.
+- Web App uses system-assigned identity for zero-credential access.
+- Diagnostic logs sent to **Log Analytics** workspace.
+- Defender for Cloud activated for core resources.
+
+---
+
+## 📁 Project Structure
+
+```
+
+SecureBank-Pro/
+│
+├── app/                        # Node.js application
+│   ├── index.js
+│   └── package.json
+│
+├── bicep/                      # All infrastructure-as-code files
+│   ├── step1-core.bicep
+│   ├── step2-secrets-and-db.bicep
+│   ├── step3-app-and-identity.bicep
+│   └── step4-monitoring.bicep
+│
+└── README.md                   # You're here!
+
+````
+
+---
+
+## 🚀 Deployment Steps
+
+### ✅ Prerequisites
+
+- Azure CLI logged in
+- `az bicep` installed and up to date
+- Node.js + npm installed (for the app)
+- GitHub repo created (optional)
+
+---
+
+### 🧱 Step 1: Core Infrastructure
 
 ```bash
-az group create --name SecureBankRG3 --location centralus
-
 az deployment group create \
   --resource-group SecureBankRG3 \
-  --template-file bicep/core-infra.bicep
+  --template-file ./bicep/step1-core.bicep
+````
 
+---
+
+### 🔐 Step 2: Key Vault + SQL
+
+```bash
+az deployment group create \
+  --resource-group SecureBankRG3 \
+  --template-file ./bicep/step2-secrets-and-db.bicep \
+  --parameters adminPassword='YourStrongP@ssword123!'
+```
+
+---
+
+### 🌐 Step 3: App + Identity
+
+```bash
+az deployment group create \
+  --resource-group SecureBankRG3 \
+  --template-file ./bicep/step3-app-and-identity.bicep \
+  --parameters keyVaultName=sbp-kv-kelvin20250708
+```
+
+> ⚠️ Then deploy the app:
+
+```bash
+cd app
+npm install
+zip -r app.zip *
+az webapp deploy \
+  --resource-group SecureBankRG3 \
+  --name sbp-webapp-kelvin \
+  --src-path app.zip \
+  --type zip
+```
+
+---
+
+### 📊 Step 4: Monitoring
+
+```bash
+az deployment group create \
+  --resource-group SecureBankRG3 \
+  --template-file ./bicep/step4-monitoring.bicep
+```
+
+> 📈 View Logs:
+
+```bash
+az monitor log-analytics query \
+  --workspace <workspace-id> \
+  --analytics-query "AppRequests | take 5" \
+  --out table
+```
+
+---
+
+### 🛡️ Step 5: Defender for Cloud
+
+```bash
+az provider register --namespace Microsoft.Security
+az security pricing create --name AppServices --tier 'Standard'
+az security pricing create --name SqlServers --tier 'Standard'
+az security pricing create --name KeyVaults --tier 'Standard'
+```
+
+> ✅ Verify pricing tiers:
+
+```bash
+az security pricing list --query "[?pricingTier=='Standard'].{Resource:name, Tier:pricingTier}" -o table
+```
+
+---
+
+## 📌 Key Takeaways
+
+* Zero-trust access with managed identity
+* Fully automated infrastructure using Bicep
+* No secrets exposed in app code
+* Logging, monitoring, and threat detection enabled
+* Industry-grade project to impress recruiters
+
+---
+
+## 👨‍💻 Author
+
+**Kelvin Arigbe**
+*Cloud Security Enthusiast | Azure Certified | DevSecOps Focused*
+
+GitHub: [KTENXX](https://github.com/KTENXX)
+
+---
+
+## 🧠 License
+
+This project is licensed for educational purposes only. Please fork and adapt as needed
