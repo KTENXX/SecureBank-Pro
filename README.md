@@ -5,7 +5,7 @@ SecureBank Pro is a senior-level cloud security architecture blueprint designed 
 
 ---
 
-## �� Project Overview
+## 🧭 Project Overview
 
 | Phase | Title                        | Description                                                                 |
 |-------|------------------------------|-----------------------------------------------------------------------------|
