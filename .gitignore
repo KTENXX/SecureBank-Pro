@@ -1,0 +1,15 @@
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore Azure temp files
+*.log
+*.bak
+
+# Node / Python / VSCode (if you add later)
+node_modules/
+__pycache__/
+.vscode/
+
+# Ignore passwords if added later
+*.env
