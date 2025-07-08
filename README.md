@@ -89,7 +89,7 @@ az deployment group create \
 az deployment group create \
   --resource-group SecureBankRG3 \
   --template-file ./bicep/step2-secrets-and-db.bicep \
-  --parameters adminPassword='YourStrongP@ssword123!'
+  --parameters adminPassword='YOUR_ADMIN_PASSWORD'
 ```
 
 ---
