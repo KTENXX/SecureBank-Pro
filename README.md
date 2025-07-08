@@ -1,36 +1,39 @@
-# 🚀 SecureBank Pro – Azure Cloud Security Architecture (Free Tier Project)
+# 🔐 SecureBank Pro – Azure Cloud Security Architecture (Free Tier Project)
 
-**SecureBank Pro** is a cost-optimized, enterprise-grade cloud security reference architecture deployed on Microsoft Azure using Bicep Infrastructure-as-Code.
+SecureBank Pro is a real-world, enterprise-style Azure cloud security project built on a **$0/month free tier + $100 credit**. It simulates a secure banking environment and showcases:
 
-> 🔐 Built entirely using **Azure Free Tier + $100 credit**
-
----
-
-## ✅ Project Highlights
-
-| Layer            | Component                             | Purpose |
-|------------------|----------------------------------------|---------|
-| **Networking**   | VNet, Subnets, NSG                     | Isolated network zones with traffic control |
-| **Security**     | Key Vault                              | Secure secret management |
-| **Data Layer**   | Azure SQL Server & Database            | Secure database with login auth |
-| **Observability**| Log Analytics Workspace                | Centralized logging and future diagnostics |
-| **IaC**          | Bicep (ARM DSL)                        | Repeatable and secure deployments |
+- Infrastructure as Code (IaC) with **Azure Bicep**
+- Secure App deployment using **Azure App Service (Linux + Node.js)**
+- **Key Vault** integration via **Managed Identity**
+- Secretless architecture (no hardcoded secrets)
+- Full GitHub documentation and CLI deployment
 
 ---
 
-## 🏗️ Bicep Deployment Steps
+## 📌 Quick Navigation
+
+- [🔧 Phase 1 – Core Infrastructure](#-phase-1--core-infrastructure-provisioning)
+- [🚀 Phase 2 – Secure App Deployment](#-phase-2--app--secrets-integration)
+- [📊 Phase 3 – Monitoring & Security](#-phase-3--monitoring-logging-defender-coming-soon)
+- [💻 Tech Stack](#-tech-stack)
+- [📁 Project Structure](#-project-structure)
+- [�� Deployment Guide](#-deployment-guide)
+
+---
+
+## �� Phase 1 – Core Infrastructure Provisioning
+
+> **Goal:** Build foundational cloud resources using Bicep.
+
+✅ Resource Group  
+✅ App Service Plan (Linux)  
+✅ Virtual Network (optional)  
+✅ Prepared for expansion in later phases
 
 ```bash
-# Step 1: Create resource group
-az group create --name SecureBankRG3 --location "Central US"
+az group create --name SecureBankRG3 --location centralus
 
-# Step 2: Deploy core infra (network + logging)
 az deployment group create \
   --resource-group SecureBankRG3 \
-  --template-file ./bicep/core-infra.bicep
+  --template-file bicep/core-infra.bicep
 
-# Step 3: Deploy SQL + Key Vault
-az deployment group create \
-  --resource-group SecureBankRG3 \
-  --template-file ./bicep/step2-secrets-and-db.bicep \
-  --parameters adminPassword='YourStrongP@ssword123!'
