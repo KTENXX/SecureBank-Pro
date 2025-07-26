@@ -169,7 +169,6 @@ az security pricing list --query "[?pricingTier=='Standard'].{Resource:name, Tie
 **Kelvin Arigbe**
 *Cloud Security Enthusiast | Azure Certified | DevSecOps Focused*
 
-GitHub: [KTENXX](https://github.com/KTENXX)
 
 ---
 
